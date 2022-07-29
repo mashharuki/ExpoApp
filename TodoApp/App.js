@@ -4,14 +4,20 @@ import {
   View,
   ScrollView,
   FlatList,
-  TextInput,
-  Button,
+  //TextInput,
+  //Button,
   KeyboardAvoidingView,
   AsyncStorage,
   TouchableOpacity,
   StatusBar,
   Platform
 } from 'react-native';
+import {
+  SearchBar,
+  Input,
+  Button,
+} from 'react-native-elements';
+import Icon from "react-native-vector-icons/Feather";
 import styles from './Style'; 
 
 const TODO = "@todoapp.todo";
@@ -143,16 +149,19 @@ export default class App extends React.Component {
       todo = todo.filter(t => t.title.includes(filterText))
     }
 
+    const platform = Platform.OS == 'ios' ? 'ios' : 'android';
+
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View style={styles.filter}>
-          <TextInput
-            onChangeText={(text) => this.setState({filterText: text})}
-            value={this.state.filterText}
-            style={styles.inputText}
-            placeholder="Type filter text"
-          />
-        </View>
+        {/* SearchBar */}
+        <SearchBar
+          platform={platform}
+          cancelButtonTitle="Cancel"
+          onChangeText={(text) => {this.setState({filterText: text})}}
+          onClear={() => this.setState({filterText: ""})}
+          value={this.state.filterText}
+          placeholder="Type filter text"
+        />
         <ScrollView style={styles.todolist}>
           <FlatList 
             data={todo}
@@ -169,16 +178,22 @@ export default class App extends React.Component {
           />
         </ScrollView>
         <View style={styles.input}>
-          <TextInput
+          <Input
             onChangeText={(text) => this.setState({inputText: text})}
             value={this.state.inputText}
-            style={styles.inputText}
+            containerStyle={styles.inputText}
           />
           <Button
+            icon={
+              <Icon
+                name='plus'
+                size={30}
+                color='white'
+              />
+            }
             onPress={this.onAddItem}
-            title="Add"
-            color="#841584"
-            style={styles.inputButton}
+            title=""
+            buttonStyle={styles.inputButton}
           />
         </View>
       </KeyboardAvoidingView>
