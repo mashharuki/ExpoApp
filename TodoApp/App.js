@@ -16,10 +16,13 @@ import {
   SearchBar,
   Input,
   Button,
+  ListItem,
 } from 'react-native-elements';
 import Icon from "react-native-vector-icons/Feather";
+import Icon2 from "react-native-vector-icons/MaterialIcons";
 import styles from './Style'; 
 
+const STATUSBAR_HEIGHT = Platform.OS == 'ios' ? 20 : StatusBar.currentHeight;
 const TODO = "@todoapp.todo";
 
 /**
@@ -28,15 +31,20 @@ const TODO = "@todoapp.todo";
  * @returns 
  */
 const TodoItem = (props) => {
-  let textStyle = styles.todoItem;
+
+  let icon = null;
 
   if (props.done === true) {
-    textStyle = styles.todoItemDone
+    icon = <Icon2 name='done'/>
   }
 
   return (
     <TouchableOpacity onPress={props.onTapTodoItem}>
-      <Text style={textStyle}>{props.title}</Text>
+      <ListItem
+        title={props.title}
+        rightIcon={icon}
+        bottomDivider
+      /> 
     </TouchableOpacity>
   )
 }

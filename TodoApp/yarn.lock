@@ -5562,6 +5562,11 @@
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz"
   "version" "0.0.6"
 
+"react-native-iphone-se-helper@^0.0.2":
+  "integrity" "sha512-NZ8zfT6wqLuzvhEov38qo4wsxBCuSIZPJZ1GzbwNYoOZUARBuZdlyDBUX1ZMN10n/VmOf7JJ52zF7+oL5JFT2Q=="
+  "resolved" "https://registry.npmjs.org/react-native-iphone-se-helper/-/react-native-iphone-se-helper-0.0.2.tgz"
+  "version" "0.0.2"
+
 "react-native-ratings@8.0.4":
   "integrity" "sha512-Xczu5lskIIRD6BEdz9A0jDRpEck/SFxRqiglkXi0u67yAtI1/pcJC76P4MukCbT8K4BPVl+42w83YqXBoBRl7A=="
   "resolved" "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-8.0.4.tgz"
