@@ -1,8 +1,9 @@
 import React from "react";
 import React from 'react';
 import TodoScreen from "./src/TodoScreen";
-import {store} from "./src/store";
+import store, { persistor } from "./src/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 /**
  * Appコンポーネント
@@ -13,7 +14,9 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <TodoScreen />
+        <PersistGate loading={null} persistor={persistor}>
+          <TodoScreen />
+        </PersistGate>
       </Provider> 
     )
   }

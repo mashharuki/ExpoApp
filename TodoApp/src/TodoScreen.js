@@ -18,9 +18,11 @@ import {
   Button,
   ListItem,
 } from 'react-native-elements';
+import { connect } from 'react-redux';
 import Icon from "react-native-vector-icons/Feather";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import styles from './../Style'; 
+import { addTodo, toggleTodo } from './actionCreators';
 
 const STATUSBAR_HEIGHT = Platform.OS == 'ios' ? 20 : StatusBar.currentHeight;
 const TODO = "@todoapp.todo";
@@ -52,7 +54,7 @@ const TodoItem = (props) => {
 /**
  * TodoScreenコンポーネント
  */
-export default class TodoScreen extends React.Component {
+class TodoScreen extends React.Component {
 
   /**
    * コンストラクター
@@ -61,48 +63,8 @@ export default class TodoScreen extends React.Component {
     super(props);
     // ステート変数
     this.state = {
-      todo: [],
-      currentIndex: 0,
       inputText: "",
       filterText: "",
-    }
-  }
-
-  // 描画される前に実行するメソッド
-  componentDidMount() {
-    // loadTodoメソッドを呼び出す
-    this.loadTodo()
-  }
-
-  /**
-   * Todoメソッド
-   */
-  loadTodo = async () => {
-    try {
-      const todoString = await AsyncStorage.getItem(TODO)
-
-      if (todoString) {
-        const todo = JSON.parse(todoString)
-        const currentIndex = todo.length
-        this.setState({todo: todo, currentIndex: currentIndex})
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  /**
-   * Todoを保管するメソッド
-   * @param {*} todo Todo
-   */
-  saveTodo = async (todo) => {
-    try {
-      // json形式に変換する。
-      const todoString = JSON.stringify(todo)
-      // セットする。
-      await AsyncStorage.setItem(TODO, todoString)
-    } catch (e) {
-      console.log(e)
     }
   }
 
@@ -117,17 +79,12 @@ export default class TodoScreen extends React.Component {
       return
     }
 
-    const index = this.state.currentIndex + 1
-    const newTodo = {index: index, title: title, done: false}
-    const todo = [...this.state.todo, newTodo]
-    // ステートを更新する。
+    // データをセットする。
+    this.state.addTodo(title);
+    // ステート変数を更新する。
     this.setState({
-      todo: todo,
-      currentIndex: index,
       inputText: ""
     })
-    // データをセットする。
-    this.saveTodo(todo)
   }
 
   /**
@@ -135,23 +92,15 @@ export default class TodoScreen extends React.Component {
    * @param {*} todoItem 選択したTodo
    */
   onTapTodoItem = (todoItem) => {
-    const todo = this.state.todo
-    // IDを取得する。
-    const index = todo.indexOf(todoItem)
-    // todoのステータスを変更する。
-    todoItem.done = !todoItem.done
-    // 内容を更新する。
-    todo[index] = todoItem
-    // ステートを変換する。
-    this.setState({todo: todo})
-    this.saveTodo(todo)
+    // actionCreatorsの関数を呼び出す。
+    this.props.toggleTodo(todoItem);
   }
 
   render() {
 
     const filterText = this.state.filterText
 
-    let todo = this.state.todo
+    let todo = this.props.todos
 
     if (filterText !== "") {
       todo = todo.filter(t => t.title.includes(filterText))
@@ -208,3 +157,28 @@ export default class TodoScreen extends React.Component {
     );
   }
 }
+
+/**
+ * todoReducerのstateをpropsへマップするためのメソッド
+ */
+const mapStateToProps = state => {
+  return {
+    todos: state.todos.todos,
+  }
+};
+
+/**
+ * actionCreatorsの関数をpropsへマップするためのメソッド
+ */
+const mapDispatchToProps = dispatch => {
+  return {
+    addTodo(text) {
+      dispatch(addTodo(text))
+    },
+    toggleTodo(todo) {
+      dispatch(toggleTodo(todo))
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoScreen);
