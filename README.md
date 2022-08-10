@@ -70,3 +70,7 @@ android
 iPhone
 
 <img src="./docs/assets/iphone.png">
+
+### 参考文献
+ 1. [トイレマップアプリ](https://github.com/mashharuki/MBToiletMap)
+ 
