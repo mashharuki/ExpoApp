@@ -453,10 +453,88 @@ node
 out;
 ```
 
+#### ReactNative CLIでプロジェクトを作成する場合
+
+`react-native init {project name}`
+
+出力結果例
+```cmd
+                                                          
+               ######                ######               
+             ###     ####        ####     ###             
+            ##          ###    ###          ##            
+            ##             ####             ##            
+            ##             ####             ##            
+            ##           ##    ##           ##            
+            ##         ###      ###         ##            
+             ##  ########################  ##             
+          ######    ###            ###    ######          
+      ###     ##    ##              ##    ##     ###      
+   ###         ## ###      ####      ### ##         ###   
+  ##           ####      ########      ####           ##  
+ ##             ###     ##########     ###             ## 
+  ##           ####      ########      ####           ##  
+   ###         ## ###      ####      ### ##         ###   
+      ###     ##    ##              ##    ##     ###      
+          ######    ###            ###    ######          
+             ##  ########################  ##             
+            ##         ###      ###         ##            
+            ##           ##    ##           ##            
+            ##             ####             ##            
+            ##             ####             ##            
+            ##          ###    ###          ##            
+             ###     ####        ####     ###             
+               ######                ######               
+                                                          
+
+                  Welcome to React Native!                
+                 Learn once, write anywhere               
+
+✔ Downloading template
+✔ Copying template
+✔ Processing template
+✔ Installing CocoaPods dependencies (this may take a few minutes)
+
+  
+  Run instructions for Android:
+    • Have an Android emulator running (quickest way to get started), or a device connected.
+    • cd "/Users/harukikondo/git/ExpoApp/BarcodeReader" && npx react-native run-android
+  
+  Run instructions for iOS:
+    • cd "/Users/harukikondo/git/ExpoApp/BarcodeReader" && npx react-native run-ios
+    - or -
+    • Open BarcodeReader/ios/BarcodeReader.xcworkspace in Xcode or run "xed -b ios"
+    • Hit the Run button
+    
+  Run instructions for macOS:
+    • See https://aka.ms/ReactNativeGuideMacOS for the latest up-to-date instructions.
+    
+  
+(base) harukikondo@kondouharuakiranoiMac ExpoApp % npm i -g near-cli
+npm WARN config global `--global`, `--local` are deprecated. Use `--location=global` instead.
+npm WARN deprecated @ledgerhq/hw-transport-u2f@5.36.0-deprecated: @ledgerhq/hw-transport-u2f is deprecated. Please use @ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid. https://github.com/LedgerHQ/ledgerjs/blob/master/docs/migrate_webusb.md
+
+added 321 packages, and audited 322 packages in 30s
+
+27 packages are looking for funding
+  run `npm fund` for details
+
+4 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+```
+
+### nativeモジュールをアプリで使えるようにするためのコマンド
+ `react-native link {モジュール名}`
+
 ### 参考文献
  1. [トイレマップアプリ](https://github.com/mashharuki/MBToiletMap)
  2. [Expoの公式ドキュメント](https://docs.expo.dev/get-started/create-a-new-app/)
  3. [Overpass API 公式ドキュメント](http://overpass-api.de/)
  4. [Overpass Turbo](https://overpass-turbo.eu/)
  5. [turf.jsの公式ドキュメント](https://turfjs.org/)
- 
+ 6. [ReactNativeCameraのGitHubリポジトリ](https://github.com/react-native-camera/react-native-camera)
+ 7. [ReactNativeCameraの公式サイト](https://react-native-camera.github.io/react-native-camera/)
