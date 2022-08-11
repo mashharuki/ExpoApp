@@ -2,7 +2,9 @@ import React from 'react';
 import {
   View, 
   Text, 
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
 } from 'react-native';
 import { MapView } from 'react-native-maps';
 import Styles from './Style';
@@ -20,6 +22,31 @@ class MapScreen extends React.Component {
   // タイトル
   static navigationOptions = {
     title: 'トイレマップ',
+  };
+
+  gotoElementScreen = (element, title) => {
+    this.props.navigation.navigate('Element', { 
+      element: element,
+      title: title,
+    })
+  };
+
+  /**
+   * TagItemコンポーネント
+   */
+  TagItem = (props) => {
+    const { tag } = props;
+
+    return (
+      <View style={Styles.tagItem}>
+        <View style={Styles.tag}>
+          <Text>{tag[0]}</Text>
+        </View>
+        <View style={Styles.tag}>
+          <Text>{tag[1]}</Text>
+        </View>
+      </View>
+    );
   };
 
   /**
@@ -123,6 +150,7 @@ class MapScreen extends React.Component {
                   title=""
                   key={"id_" + element.id}
                   id={"id_" + element.id}
+                  onCalloutPress={() => this.gotoElementScreen(element, title)}
                 >
                   { /* 8: マーカーに相当するものがないのでViewでポイントを表示する */ }
                   <View style={styles.annotationContainer}>
@@ -149,3 +177,52 @@ class MapScreen extends React.Component {
   }
 }
 
+/**
+ * 詳細を表示するElementScreenコンポーネントを追加
+ */
+class ElementScreen extends React.Component {
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: navigation.getParam('title', '')
+    }
+  };
+
+  render() {
+    const { navigation } = this.props;
+    const element = navigation.getParam('element', undefined);
+
+    if (element === undefined) {
+      return (<View/>);
+    }
+
+    return (
+      <View>
+        <Text>{element.id}</Text>
+      </View>
+    );
+  }
+};
+
+/**
+ * StackNavigatorを作成
+ */
+const RootStack = createStackNavigator(
+  {
+    Map: MapScreen,
+    Element: ElementScreen,
+  },
+  {
+    initialRouteName: 'Map'
+  }
+);
+
+/**
+ * Appコンポーネント
+ */
+export default class App extends React.Component {
+
+  render() {
+    return <RootStack/>;
+  }
+};
